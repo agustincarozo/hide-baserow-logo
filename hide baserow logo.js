@@ -1,16 +1,18 @@
-window.__baserow.hook('app:mounted', () => {
-  const removeLabels = () => {
-    document.querySelectorAll('.logo__label').forEach((el) => el.remove())
+;(function () {
+  var styleId = 'hide-baserow-logo-label'
+
+  if (document.getElementById(styleId)) {
+    return
   }
 
-  removeLabels()
+  var style = document.createElement('style')
+  style.id = styleId
+  style.textContent = [
+    '.logo__label {',
+    '  display: none !important;',
+    '  visibility: hidden !important;',
+    '}',
+  ].join('\n')
 
-  const observer = new MutationObserver(() => {
-    removeLabels()
-  })
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-  })
-})
+  document.head.appendChild(style)
+})()
